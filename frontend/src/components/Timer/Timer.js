@@ -17,10 +17,8 @@ export default function Timer() {
 
   return (
     <div className="Timer">
-      <p>
         Time left: {`${Math.floor(time / 60)}`.padStart(2, 0)}:
         {`${time % 60}`.padStart(2, 0)}
-      </p>
     </div>
   );
 }
