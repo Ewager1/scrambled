@@ -1,6 +1,7 @@
 import { ThemeProvider } from "styled-components";
 import { StartButton } from "./components";
 import { theme } from "./styles";
+import {Timer} from "./components";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         <div>
           <StartButton>I'm a Themed Button</StartButton>
         </div>
+        <Timer />
       </ThemeProvider>
     </div>
   );
