@@ -1,64 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      seconds: "00",
-      value: props.time,
-      loading: true
-    };
-  }
+export default function Timer() {
+  //This is where the time is set
+  const [time, setTime] = useState(260);
 
-  componentDidMount() {
-    this.startCountDown();
-  }
-
-  tick = () => {
-    let min = Math.floor(this.secondsRemaining / 60);
-    let sec = this.secondsRemaining - min * 60;
-
-    this.setState({
-      value: min,
-      seconds: sec
-    });
-
-    if (sec < 10) {
-      const { seconds } = this.state;
-      this.setState({
-        seconds: "0" + seconds
+  useEffect(() => {
+    let timer = setInterval(() => {
+      setTime((time) => {
+        if (time === 0) {
+          clearInterval(timer);
+          return 0;
+        } else return time - 1;
       });
-    }
+    }, 1000);
+  }, []);
 
-    if (min < 10) {
-      this.setState({
-        value: "0" + min
-      });
-    }
-
-    if ((min === 0) & (sec === 0)) {
-      clearInterval(this.intervalHandle);
-    }
-
-    this.secondsRemaining--;
-    this.setState({ loading: false });
-  };
-
-  startCountDown = () => {
-    const { value } = this.state;
-    this.intervalHandle = setInterval(this.tick, 1000);
-    this.secondsRemaining = value;
-  };
-
-  render() {
-    const { loading, value, seconds } = this.state;
-    const { className } = this.props;
-    return !loading ? (
-      <span className={"timer" + className}>
-        {value}:{seconds}
-      </span>
-    ) : null;
-  }
+  return (
+    <div className="Timer">
+      <p>
+        Time left: {`${Math.floor(time / 60)}`.padStart(2, 0)}:
+        {`${time % 60}`.padStart(2, 0)}
+      </p>
+    </div>
+  );
 }
-
-export default Timer;
