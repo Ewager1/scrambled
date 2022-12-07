@@ -5,7 +5,7 @@ export default function Timer() {
   const [time, setTime] = useState(260);
 
   useEffect(() => {
-    let timer = setInterval(() => {
+    const timer = setInterval(() => {
       setTime((time) => {
         if (time === 0) {
           clearInterval(timer);
